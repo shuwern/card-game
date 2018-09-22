@@ -97,6 +97,7 @@ export default class WordCard extends Component {
                         activationHandler = {this.activationHandler}/>
                     )
                 }
+                <p>{this.state.completed ? "You Win!" : ""}</p>
             </div>
         )
     }

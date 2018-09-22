@@ -53,6 +53,7 @@ export default class WordCard extends Component {
                         activationHandler = {this.activationHandler}/>
                     )
                 }
+                <p>Your attempt left:{4 - this.state.attempt}</p>
                 <p>{this.state.completed ? "You Win!" : ""}</p>
                 <p>{this.state.lose ? "You lose!" : ""}</p>
                 <button className={className} type="submit"  onClick={this.restartGame}>Restart Game</button>

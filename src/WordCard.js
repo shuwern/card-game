@@ -39,7 +39,12 @@ export default class WordCard extends Component {
         }
     }
 
-    render(){         
+    restartGame(){
+        window.location.reload()
+    }
+
+    render(){   
+        let className = `card ${this.state.lose ? '' : 'invisible'}`      
         return(
             <div className="App">
                 {
@@ -50,6 +55,7 @@ export default class WordCard extends Component {
                 }
                 <p>{this.state.completed ? "You Win!" : ""}</p>
                 <p>{this.state.lose ? "You lose!" : ""}</p>
+                <button className={className} type="submit"  onClick={this.restartGame}>Restart Game</button>
             </div>
         )
     }

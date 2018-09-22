@@ -10,7 +10,8 @@ const prepareStateFromWord = (given_word) => {
         chars,
         attempt: 1,
         guess: [],
-        completed: false
+        completed: false,
+        lose: false
     }
 }
 export default class WordCard extends Component{
@@ -19,26 +20,32 @@ export default class WordCard extends Component{
         this.state = prepareStateFromWord(this.props.value)
     }
 
-    activationHandler = c => { console.log(`${c} has been activated.`) }
     activationHandler = (c) => {
         let guess = [this.state.guess] + c
-        this.setState({guess})
-        if(guess.length == this.state.chars.length){
-            if(guess == this.state.word){
-                this.setState({guess: [], completed: true})
-            }
-            else{
-                this.setState({guess: [], attempt: this.state.attempt + 1})
+        if(this.state.attempt <= 3){
+            this.setState({guess})
+            if(guess.length == this.state.chars.length){
+                if(guess == this.state.word){
+                    this.setState({guess: [], completed: true})
+                }
+                else{
+                    this.setState({guess: [], attempt: this.state.attempt + 1})
+                    if(this.state.attempt == 3){
+                        this.setState({lose: true})
+                    }
+                }
             }
         }
     }
+ 
     render() {
         return(
             <div>
                 {
-                    Array.from(this.state.chars).map((c, i) => <CharacterCard value={c} key={i} activationHandler={this.activationHandler}/>)
+                    Array.from(this.state.chars).map((c, i) => <CharacterCard value={c} key={i} attempt={this.state.attempt} activationHandler={this.activationHandler}/>)
                 }
-                <p>{this.state.completed ? "You Win!" : ""}</p>
+                <p class="center">{this.state.completed ? "You Win!" : ""}</p>
+                <p class="center">{this.state.lose ? "You lose" : ""}</p>
             </div>
         )
 
